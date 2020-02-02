@@ -1,9 +1,16 @@
 import { Router } from 'express';
+import SessionController from './app/controllers/SessionController';
+import UserController from './app/controllers/UserController';
+import authMiddlewares from './app/middlewares/auth';
 
 const routes = new Router();
 
-routes.get('/', (req, res) => {
-  return res.json({ mensagem: 'Hello Rocketseat testando' });
-});
+routes.post('/users', UserController.store);
+
+routes.post('/session', SessionController.store);
+
+routes.use(authMiddlewares);
+
+routes.put('/users', UserController.update);
 
 export default routes;
